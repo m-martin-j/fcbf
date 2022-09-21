@@ -15,6 +15,24 @@ journal = {Proceedings, Twentieth International Conference on Machine Learning}
 
 Data for testing is taken from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml)
 
+## Example
+
+```py
+from fcbf import fcbf, data
+
+
+dataset = data.lung_cancer
+X = dataset[dataset.columns[1:]]
+y = dataset[dataset.columns[0]].astype(int)
+print(X)
+print(y)
+
+relevant_features, irrelevant_features, correlations = fcbf(X, y, su_threshold=0.1, base=2)
+print('relevant_features:', relevant_features, '(count:', len(relevant_features), ')')
+print('irrelevant_features:', irrelevant_features, '(count:', len(irrelevant_features), ')')
+print('correlations:', correlations)
+```
+
 ## Setup
 Using pip, execute the following
 

@@ -178,3 +178,20 @@ def fcbf(X: pd.DataFrame, y: pd.Series,
     irrelevant_feature_names = [f_name for (f_name, _) in S_ord_removed + S_removed]
 
     return relevant_feature_names_sorted, irrelevant_feature_names, correlation_values
+
+
+if __name__ == '__main__':
+
+    from fcbf import data
+
+
+    dataset = data.lung_cancer
+    X = dataset[dataset.columns[1:]]
+    y = dataset[dataset.columns[0]].astype(int)
+    print(X)
+    print(y)
+
+    relevant_features, irrelevant_features, correlations = fcbf(X, y, su_threshold=0.1, base=2)
+    print('relevant_features:', relevant_features, '(count:', len(relevant_features), ')')
+    print('irrelevant_features:', irrelevant_features, '(count:', len(irrelevant_features), ')')
+    print('correlations:', correlations)
