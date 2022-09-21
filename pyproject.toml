@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fcbf"
-version = "0.1.0"
+version = "0.1.1"
 description = "Categorical feature selection based on information theoretical considerations"
 readme = "DESCRIPTION.md"
 authors = ["Martin Trat <martin.trat@gmail.com>"]
