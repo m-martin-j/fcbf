@@ -3,6 +3,7 @@ A categorical feature selection approach based on information theoretical consid
 
 Implementation of the fast correlation-based filter (FCBF) proposed by Yu and Liu:
 
+```bibtex
 @inproceedings{inproceedings,
 author = {Yu, Lei and Liu, Huan},
 year = {2003},
@@ -12,6 +13,7 @@ title = {Feature Selection for High-Dimensional Data: A Fast Correlation-Based F
 volume = {2},
 journal = {Proceedings, Twentieth International Conference on Machine Learning}
 }
+``` 
 
 Data for testing is taken from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml)
 
