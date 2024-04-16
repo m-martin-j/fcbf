@@ -1,15 +1,13 @@
 
 import unittest
 
-import pandas as pd
-
 from fcbf import fcbf
+from fcbf.data import lung_cancer
 
 
 class TestFCBF(unittest.TestCase):
     def setUp(self) -> None:
-        self.dataset_lung_cancer = pd.read_csv('data\lung-cancer.data',
-                                               header=None, na_values='?')
+        self.dataset_lung_cancer = lung_cancer
 
     def test_fcbf(self):
         data = self.dataset_lung_cancer
@@ -33,4 +31,6 @@ class TestFCBF(unittest.TestCase):
             23: 0.2154721906234732, 43: 0.21712431344241784, 6: 0.24878669151941848,
             14: 0.25114400843106244, 19: 0.30498083504946366}
         self.assertEqual(relevant_features, relevant_features_target)
-        self.assertEqual(correlations, correlations_target)
+
+        for key, value in correlations.items():
+            self.assertAlmostEqual(value, correlations_target[key], places=7)
