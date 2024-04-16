@@ -33,7 +33,7 @@ def cond_proba(X: pd.Series, y: pd.Series) -> pd.Series:
     Returns:
         pd.Series: The conditional probability.
     """
-    sample = pd.concat([X, y], axis=1, )
+    sample = pd.concat([X, y], axis=1)
     return sample.groupby([X.name, y.name]).size().div(len(sample.index)).div(prior(y), axis=0, level=y.name)
 
 def cond_entropy(X: pd.Series, y: pd.Series, base: float =np.e) -> float:
