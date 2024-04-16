@@ -50,7 +50,7 @@ def cond_entropy(X: pd.Series, y: pd.Series, base: float =np.e) -> float:
     cond_proba_ = cond_proba(X, y)
     logged_cond_proba_ = np.log(cond_proba_) / np.log(base)
     prod = cond_proba_ * logged_cond_proba_
-    return -1 * prod.sum(axis=0, level=y.name).mul(prior(y)).sum(axis=0)
+    return -1 * prod.groupby(level=y.name).sum().mul(prior(y)).sum()
 
 def information_gain(X: pd.Series, y: pd.Series, base: float=np.e) -> float:
     """Calculates the information gain IG of a feature regarding the class.
