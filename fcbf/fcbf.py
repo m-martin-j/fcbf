@@ -22,6 +22,7 @@ def prior(X: pd.Series) -> pd.Series:
     n = X.size
     return X.value_counts()/n
 
+
 def cond_proba(X: pd.Series, y: pd.Series) -> pd.Series:
     """Calculates the conditional probability of a feature given the class.
     # TODO: accept a nx2 df containing X and y
@@ -36,7 +37,8 @@ def cond_proba(X: pd.Series, y: pd.Series) -> pd.Series:
     sample = pd.concat([X, y], axis=1)
     return sample.groupby([X.name, y.name]).size().div(len(sample.index)).div(prior(y), axis=0, level=y.name)
 
-def cond_entropy(X: pd.Series, y: pd.Series, base: float =np.e) -> float:
+
+def cond_entropy(X: pd.Series, y: pd.Series, base: float = np.e) -> float:
     """Calculates the conditional entropy of a feature given the class.
 
     Args:
@@ -52,7 +54,8 @@ def cond_entropy(X: pd.Series, y: pd.Series, base: float =np.e) -> float:
     prod = cond_proba_ * logged_cond_proba_
     return -1 * prod.groupby(level=y.name).sum().mul(prior(y)).sum()
 
-def information_gain(X: pd.Series, y: pd.Series, base: float=np.e) -> float:
+
+def information_gain(X: pd.Series, y: pd.Series, base: float = np.e) -> float:
     """Calculates the information gain IG of a feature regarding the class.
     Formula: IG(X|y) = entropy(X) - cond_entropy(X|y)
 
@@ -74,7 +77,8 @@ def information_gain(X: pd.Series, y: pd.Series, base: float=np.e) -> float:
 
     return entropy_ - cond_entropy_
 
-def symmetrical_uncertainty(X: pd.Series, y: pd.Series, base: float=np.e) -> float:
+
+def symmetrical_uncertainty(X: pd.Series, y: pd.Series, base: float = np.e) -> float:
     """Calculates the symmetrical uncertainty SU of a feature regarding the class.
     Formula: SU(X,y) = 2 * IG(X|y) / ( entropy(X) + entropy(y) )
 
@@ -92,8 +96,9 @@ def symmetrical_uncertainty(X: pd.Series, y: pd.Series, base: float=np.e) -> flo
 
     return 2 * information_gain_ / (entropy_X + entropy_y)
 
+
 def fcbf(X: pd.DataFrame, y: pd.Series,
-         su_threshold: float=0.0, base: float=np.e) -> Tuple[list, list, dict]:
+         su_threshold: float = 0.0, base: float = np.e) -> Tuple[list, list, dict]:
     """Fast correlation-based filter algorithm introduced by Yu and Liu.
     @inproceedings{inproceedings,
     author = {Yu, Lei and Liu, Huan},
@@ -183,7 +188,6 @@ def fcbf(X: pd.DataFrame, y: pd.Series,
 if __name__ == '__main__':
 
     from fcbf import data
-
 
     dataset = data.lung_cancer
     X = dataset[dataset.columns[1:]]
