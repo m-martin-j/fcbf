@@ -13,26 +13,31 @@ title = {Feature Selection for High-Dimensional Data: A Fast Correlation-Based F
 volume = {2},
 journal = {Proceedings, Twentieth International Conference on Machine Learning}
 }
-``` 
+```
 
-Data for testing is taken from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml)
+Data for testing is taken from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml). See also [notes on the contained lung cancer dataset](http://archive.ics.uci.edu/dataset/62/lung+cancer).
 
 ## Example
 
 ```py
 from fcbf import fcbf, data
 
-
 dataset = data.lung_cancer
-X = dataset[dataset.columns[1:]]
-y = dataset[dataset.columns[0]].astype(int)
+print(dataset.columns[0])
+print(dataset.columns[2:])
+print([dataset.columns[0]] + dataset.columns[2:].tolist())
+X = dataset.loc[:, [dataset.columns[0]] + dataset.columns[2:].tolist()]
+y = dataset[dataset.columns[1]].astype(int)
 print(X)
 print(y)
+print(X.columns)
+print(y.name)
 
 relevant_features, irrelevant_features, correlations = fcbf(X, y, su_threshold=0.1, base=2)
 print('relevant_features:', relevant_features, '(count:', len(relevant_features), ')')
 print('irrelevant_features:', irrelevant_features, '(count:', len(irrelevant_features), ')')
 print('correlations:', correlations)
+
 ```
 
 ## Setup
